@@ -7,11 +7,12 @@ var Client = require('mysql').Client,
 client.database = '';
 client.connect();
 
-client.query('SELECT NULL as field_a, NULL as field_b', function(err, results) {
+client.query('SELECT NULL as field_a, NULL as field_b, "" as field_c', function(err, results) {
   if (err) throw err;
 
   assert.strictEqual(results[0].field_a, null);
   assert.strictEqual(results[0].field_b, null);
+  assert.strictEqual(results[0].field_c, '');
   client.end();
 });
 
