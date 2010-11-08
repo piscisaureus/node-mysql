@@ -10,6 +10,8 @@ for (var k in Parser) {
   ParserStub[k] = Parser[k];
 };
 
+QueryStub.prototype._paused = false;
+
 var Client = require('mysql/client');
 
 function test(test) {
@@ -228,6 +230,10 @@ test(function query() {
 
         gently.expect(client, 'write', function(packet) {
           assert.strictEqual(packet, PACKET);
+        });
+
+        gently.expect(QUERY, 'on', function (event, fn) {
+          assert.equal(event, 'throttle');
         });
       });
     });

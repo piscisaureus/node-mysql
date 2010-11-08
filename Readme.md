@@ -205,6 +205,19 @@ event instead.
 Query objects are not meant to be invoked manually. To get a query object, use
 the `client.query` API.
 
+### query.pause()
+
+Tells the query to stop emitting 'field', 'row', 'end' and 'error' events
+until query.resume() is called.
+
+Beware that when multiple queries are sent through the same client connection,
+these queries are executed one after the other. As long as a query is paused,
+subsequent queries using the same client won't be executed.
+
+### query.resume()
+
+Make the query emit events again after it has been paused with query.pause().
+
 ### query event: 'error' (err)
 
 Emitted when mysql returns an error packet for the query.
